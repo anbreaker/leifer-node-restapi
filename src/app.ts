@@ -10,6 +10,7 @@ dbConnection();
 
 // Routes
 import keepRoutes from './routes/keep.routes';
+import tracks from './routes/tracks.routes';
 
 // Initializations
 export const app = express();
@@ -34,3 +35,4 @@ app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use('/api', keepRoutes);
+app.use('/tracks', tracks);
