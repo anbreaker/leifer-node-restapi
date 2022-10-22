@@ -1,7 +1,8 @@
 import express, { json } from 'express';
-import morgan from 'morgan';
-import helmet from 'helmet';
 import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import path from 'path';
 
 // Connect to DB
 import { dbConnection } from './database/db.config.js';
@@ -10,6 +11,7 @@ dbConnection();
 
 // Routes
 import tracks from './routes/tracks.routes';
+import storages from './routes/storages.routes';
 
 // Initializations
 export const app = express();
@@ -29,8 +31,12 @@ app.use(morgan('dev'));
 // format json to object
 app.use(json());
 
+// Static files
+app.use(express.static(path.join(__dirname, 'storage')));
+
 // Data format form
 app.use(express.urlencoded({ extended: false }));
 
 // routes
-app.use('/tracks', tracks);
+app.use('/api/tracks', tracks);
+app.use('/api/storages', storages);
