@@ -1,11 +1,17 @@
 import { Router } from 'express';
 
 import { greetingsMiddleware } from '../middlewares/greetingsMiddleware';
-import { getItems } from '../controllers/tracks.controller';
+import { getItem, getItems, createItem } from '../controllers/tracks.controller';
 
 const router = Router();
 
-// /api/
+// /tracks/
 router.get('/', greetingsMiddleware, getItems);
+
+// /tracks/:id
+router.get('/:id', greetingsMiddleware, getItem);
+
+// /tracks/:id
+router.post('/', greetingsMiddleware, createItem);
 
 export default router;

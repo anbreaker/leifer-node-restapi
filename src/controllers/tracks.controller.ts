@@ -1,23 +1,65 @@
 import { Request, Response } from 'express';
 
-import { keepSetGreetings } from '../repositories/tracks.repository';
+import { Track } from '../models/nosql/track.model';
 
-export const getItems = (req: Request, res: Response) => {
-  const response = keepSetGreetings();
-
+/**
+ * Get list DB
+ * @param req
+ * @param res
+ * @returns
+ */
+export const getItems = async (req: Request, res: Response) => {
   try {
+    const data = await Track.find({});
+
+    return res.json({ data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ *
+ * @param req Get details from track
+ * @param res
+ */
+export const getItem = (req: Request, res: Response) => {
+  try {
+    const response = 'item';
+
     return res.json(response);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const createItemRepo = (req: Request, res: Response) => {};
-export const deleteItemRepo = (req: Request, res: Response) => {};
-export const getItemRepo = (req: Request, res: Response) => {};
-export const getItemsRepo = (req: Request, res: Response) => {};
-export const postItemRepo = (req: Request, res: Response) => {};
-export const updateItemRepo = (req: Request, res: Response) => {};
+/**
+ * Create a new track
+ * @param req
+ * @param res
+ */
+export const createItem = async (req: Request, res: Response) => {
+  try {
+    const { body } = req;
 
-// TODO https://ibm-learning.udemy.com/course/api-rest-nodejs-desde-cero-usando-mongodb-o-mysql/learn/lecture/31410770#overview
-// 3.33
+    const data = await Track.create(body);
+
+    return res.json({ data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * Update track
+ * @param req
+ * @param res
+ */
+export const updateItem = (req: Request, res: Response) => {};
+
+/**
+ * Delete a track
+ * @param req
+ * @param res
+ */
+export const deleteItem = (req: Request, res: Response) => {};

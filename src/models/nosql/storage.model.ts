@@ -28,4 +28,4 @@ const storageSchema = new Schema(
 );
 
 // 3. Create a Model.
-export const User = model<IStorage>('Storage', storageSchema);
+export const Storage = model<IStorage>('Storage', storageSchema);

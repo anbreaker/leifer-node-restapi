@@ -9,7 +9,6 @@ import { dbConnection } from './database/db.config.js';
 dbConnection();
 
 // Routes
-import keepRoutes from './routes/keep.routes';
 import tracks from './routes/tracks.routes';
 
 // Initializations
@@ -34,5 +33,4 @@ app.use(json());
 app.use(express.urlencoded({ extended: false }));
 
 // routes
-app.use('/api', keepRoutes);
 app.use('/tracks', tracks);

@@ -59,4 +59,4 @@ const trackSchema = new Schema(
 );
 
 // 3. Create a Model.
-export const User = model<ITrack>('Track', trackSchema);
+export const Track = model<ITrack>('Track', trackSchema);
