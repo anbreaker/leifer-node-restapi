@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import { greetingsMiddleware } from '../middlewares/greetingsMiddleware';
 import { getItem, getItems, createItem } from '../controllers/tracks.controller';
+import { validateCreateTrack } from '../validators/track.validator';
 
 const router = Router();
 
@@ -12,6 +13,6 @@ router.get('/', greetingsMiddleware, getItems);
 router.get('/:id', greetingsMiddleware, getItem);
 
 // /tracks/:id
-router.post('/', greetingsMiddleware, createItem);
+router.post('/', validateCreateTrack, createItem);
 
 export default router;
