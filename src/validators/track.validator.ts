@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { check } from 'express-validator';
 
-import { validateResults } from '../utils/handleValidator';
+import { validateResults } from '../middlewares/handleValidator';
 
 export const validateCreateTrack = [
   check('name').exists().notEmpty().isLength({ min: 3, max: 30 }),
