@@ -10,6 +10,7 @@ import { dbConnection } from './database/db.config.js';
 dbConnection();
 
 // Routes
+import auth from './routes/auth.routes';
 import tracks from './routes/tracks.routes';
 import storages from './routes/storages.routes';
 
@@ -38,5 +39,6 @@ app.use(express.static(path.join(__dirname, 'storage')));
 app.use(express.urlencoded({ extended: false }));
 
 // routes
+app.use('/api/auth', auth);
 app.use('/api/tracks', tracks);
 app.use('/api/storages', storages);
