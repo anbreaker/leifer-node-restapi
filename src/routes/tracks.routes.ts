@@ -1,18 +1,45 @@
 import { Router } from 'express';
 
 import { greetingsMiddleware } from '../middlewares/greetingsMiddleware';
-import { getItem, getItems, createItem } from '../controllers/tracks.controller';
-import { validateCreateTrack } from '../validators/track.validator';
+import {
+  createTrack,
+  deleteTrack,
+  getTrack,
+  getTracks,
+  updateTrack,
+} from '../controllers/tracks.controller';
+import { validateCreateTrack, validateGetTrack } from '../validators/track.validator';
 
 const router = Router();
 
-// /tracks/
-router.get('/', greetingsMiddleware, getItems);
+/**
+ * list of tracks
+ * path: /tracks/
+ */
+router.get('/', getTracks);
 
-// /tracks/:id
-router.get('/:id', greetingsMiddleware, getItem);
+/**
+ * get a track
+ * /tracks/:id
+ */
+router.get('/:id', getTrack);
 
-// /tracks/:id
-router.post('/', validateCreateTrack, createItem);
+/**
+ * create a track
+ * /tracks/
+ */
+router.post('/', validateCreateTrack, createTrack);
+
+/**
+ * updated track
+ * /tracks/:id
+ */
+router.put('/:id', validateGetTrack, validateCreateTrack, updateTrack);
+
+/**
+ * delete track
+ * /tracks/:id
+ */
+router.delete('/:id', deleteTrack);
 
 export default router;

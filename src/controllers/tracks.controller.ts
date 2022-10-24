@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
+import { matchedData } from 'express-validator';
 
+import { handleHttpError } from '../utils/handleHttpError';
 import { Track } from '../models/nosql/track.model';
 
 /**
@@ -8,12 +10,14 @@ import { Track } from '../models/nosql/track.model';
  * @param res
  * @returns
  */
-export const getItems = async (req: Request, res: Response) => {
+export const getTracks = async (req: Request, res: Response) => {
   try {
     const data = await Track.find({});
 
     return res.json({ data });
   } catch (error) {
+    handleHttpError(res, 'ERROR_GET_TRACKS');
+
     console.log(error);
   }
 };
@@ -23,12 +27,16 @@ export const getItems = async (req: Request, res: Response) => {
  * @param req Get details from track
  * @param res
  */
-export const getItem = (req: Request, res: Response) => {
+export const getTrack = async (req: Request, res: Response) => {
   try {
-    const response = 'item';
+    const { id } = req.params;
 
-    return res.json(response);
+    const data = await Track.findById(id);
+
+    return res.json({ data });
   } catch (error) {
+    handleHttpError(res, 'ERROR_GET_TRACK');
+
     console.log(error);
   }
 };
@@ -38,14 +46,16 @@ export const getItem = (req: Request, res: Response) => {
  * @param req
  * @param res
  */
-export const createItem = async (req: Request, res: Response) => {
+export const createTrack = async (req: Request, res: Response) => {
   try {
-    const { body } = req;
+    const body = matchedData(req);
 
     const data = await Track.create(body);
 
     return res.json({ data });
   } catch (error) {
+    handleHttpError(res, 'ERROR_CREATE_TRACK');
+
     console.log(error);
   }
 };
@@ -55,11 +65,37 @@ export const createItem = async (req: Request, res: Response) => {
  * @param req
  * @param res
  */
-export const updateItem = (req: Request, res: Response) => {};
+export const updateTrack = async (req: Request, res: Response) => {
+  try {
+    const { id, ...body } = matchedData(req);
+
+    const data = await Track.findOneAndUpdate(id, body);
+
+    return res.json({ data });
+  } catch (error) {
+    handleHttpError(res, 'ERROR_UPDATE_TRACK');
+
+    console.log(error);
+  }
+};
 
 /**
  * Delete a track
  * @param req
  * @param res
  */
-export const deleteItem = (req: Request, res: Response) => {};
+export const deleteTrack = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    // trackSchema.plugin(mongooseDelete, { overrideMethods: 'all' });
+    // Logical delete
+    const data = await Track.delete({ _id: id });
+
+    return res.json({ data });
+  } catch (error) {
+    handleHttpError(res, 'ERROR_DELETE_ITEM');
+
+    console.log(error);
+  }
+};

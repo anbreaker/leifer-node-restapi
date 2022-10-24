@@ -1,4 +1,5 @@
 import { Schema, model, Types } from 'mongoose';
+import mongooseDelete from 'mongoose-delete';
 
 // 1. Create an interface representing a document in MongoDB.
 interface ITrack {
@@ -57,6 +58,8 @@ const trackSchema = new Schema(
     versionKey: false,
   }
 );
+
+trackSchema.plugin(mongooseDelete, { overrideMethods: 'all' });
 
 // 3. Create a Model.
 export const Track = model<ITrack>('Track', trackSchema);

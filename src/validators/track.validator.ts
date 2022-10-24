@@ -18,3 +18,9 @@ export const validateCreateTrack = [
 
   (req: Request, res: Response, next: NextFunction) => validateResults(req, res, next),
 ];
+
+export const validateGetTrack = [
+  check('mediaId').exists().notEmpty().isMongoId(),
+
+  (req: Request, res: Response, next: NextFunction) => validateResults(req, res, next),
+];

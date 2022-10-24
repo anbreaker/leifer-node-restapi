@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import mongooseDelete from 'mongoose-delete';
 
 // 1. Create an interface representing a document in MongoDB.
 interface IStorage {
@@ -27,5 +28,6 @@ const storageSchema = new Schema(
   }
 );
 
+storageSchema.plugin(mongooseDelete, { overrideMethods: 'all' });
 // 3. Create a Model.
 export const Storage = model<IStorage>('Storage', storageSchema);
