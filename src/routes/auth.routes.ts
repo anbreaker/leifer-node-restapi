@@ -1,14 +1,20 @@
 import { Router } from 'express';
 
-import { getRegister } from '../controllers/auth.controller';
+import { loginControl, registerControl } from '../controllers/auth.controller';
 import { validateLogin, validateRegister } from '../validators/auth.validator';
 
 const router = Router();
 
 /**
- * create a track
+ * Create a register user
  * /auth/
  */
-router.post('/register', validateRegister, getRegister);
+router.post('/register', validateRegister, registerControl);
+
+/**
+ * Login User
+ * /auth/
+ */
+router.post('/login', validateLogin, loginControl);
 
 export default router;
