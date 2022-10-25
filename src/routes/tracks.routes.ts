@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
-import { greetingsMiddleware } from '../middlewares/greetingsMiddleware';
+import { authMiddleware } from '../middlewares/sessionMiddleware';
+import { checkRole } from '../middlewares/roleMiddleware';
 import {
   createTrack,
   deleteTrack,
@@ -16,30 +17,30 @@ const router = Router();
  * list of tracks
  * path: /tracks/
  */
-router.get('/', getTracks);
+router.get('/', authMiddleware, getTracks);
 
 /**
  * get a track
  * /tracks/:id
  */
-router.get('/:id', getTrack);
+router.get('/:id', authMiddleware, getTrack);
 
 /**
  * create a track
  * /tracks/
  */
-router.post('/', validateCreateTrack, createTrack);
+router.post('/', authMiddleware, checkRole(['admin']), validateCreateTrack, createTrack);
 
 /**
  * updated track
  * /tracks/:id
  */
-router.put('/:id', validateGetTrack, validateCreateTrack, updateTrack);
+router.put('/:id', authMiddleware, validateGetTrack, validateCreateTrack, updateTrack);
 
 /**
  * delete track
  * /tracks/:id
  */
-router.delete('/:id', deleteTrack);
+router.delete('/:id', authMiddleware, deleteTrack);
 
 export default router;

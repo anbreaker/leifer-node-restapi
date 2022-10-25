@@ -10,11 +10,13 @@ import { Track } from '../models/nosql/track.model';
  * @param res
  * @returns
  */
-export const getTracks = async (req: Request, res: Response) => {
+export const getTracks = async (req: Request | any, res: Response) => {
   try {
     const data = await Track.find({});
 
-    return res.json({ data });
+    const user = req.user;
+
+    return res.json({ data, user });
   } catch (error) {
     handleHttpError(res, 'ERROR_GET_TRACKS');
 

@@ -53,7 +53,7 @@ export const loginControl = async (req: Request | any, res: Response) => {
       return;
     }
 
-    const check = await compare(req.password, user.password);
+    const check = await compare(req.password, user!.password);
 
     if (!check) {
       handleHttpError(res, 'PASSWORD_INVALID', 401);
