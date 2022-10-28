@@ -4,10 +4,13 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path';
 
-// Connect to DB
-import { dbConnection } from './database/db.config.js';
+const ENGINE_DB = process.env.ENGINE_DB;
 
-dbConnection();
+// Connect to DB
+import { dbConnectionMongo } from './database/db.config.mongo.js';
+import { dbConnectionSql } from './database/db.config.sequlize.js';
+
+ENGINE_DB === 'nosql' ? dbConnectionMongo() : dbConnectionSql();
 
 // Routes
 import auth from './routes/auth.routes';

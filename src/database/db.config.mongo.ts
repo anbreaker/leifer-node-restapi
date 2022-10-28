@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const dbLink = process.env.MONGO_URI;
 
-export const dbConnection = async () => {
+export const dbConnectionMongo = async () => {
   try {
     const db = await mongoose.connect(dbLink!);
 
