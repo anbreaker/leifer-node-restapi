@@ -55,13 +55,17 @@ export const loginControl = async (req: Request | any, res: Response) => {
       return;
     }
 
-    const check = await compare(req.password, user!.password);
+    const hashPassword = user!.password;
+
+    const check = await compare(req.password, hashPassword);
 
     if (!check) {
       handleHttpError(res, 'PASSWORD_INVALID', 401);
 
       return;
     }
+
+    user.set('password', undefined, { strict: false });
 
     const data = {
       token: await tokenSing(user),

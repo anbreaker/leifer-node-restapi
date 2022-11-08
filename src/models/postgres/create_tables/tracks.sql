@@ -1,18 +1,18 @@
 -- Table: public.tracks
 -- DROP TABLE IF EXISTS public.tracks;
 CREATE TABLE IF NOT EXISTS public.tracks (
-  id character(20) COLLATE pg_catalog."default",
-  name character(20) COLLATE pg_catalog."default",
-  album character(50) COLLATE pg_catalog."default",
-  cover character(50) COLLATE pg_catalog."default",
-  artist_name character(50) COLLATE pg_catalog."default",
-  artist_nickname character(50) COLLATE pg_catalog."default",
-  artist_nationality character(50) COLLATE pg_catalog."default",
-  duration_start character(50) COLLATE pg_catalog."default",
-  duration_end character(50) COLLATE pg_catalog."default",
-  mediaId character(50) COLLATE pg_catalog."default",
-  "createAt" date,
-  "updateAt" date
+  id SERIAL PRIMARY KEY,
+  name text COLLATE pg_catalog."default",
+  album text COLLATE pg_catalog."default",
+  cover text COLLATE pg_catalog."default",
+  artist_name text COLLATE pg_catalog."default",
+  artist_nickname text COLLATE pg_catalog."default",
+  artist_nationality text COLLATE pg_catalog."default",
+  duration_start text COLLATE pg_catalog."default",
+  duration_end text COLLATE pg_catalog."default",
+  media_id text COLLATE pg_catalog."default",
+  "createdAt" date,
+  "updatedAt" date
 ) TABLESPACE pg_default;
 
 ALTER TABLE
