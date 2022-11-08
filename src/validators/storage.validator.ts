@@ -4,7 +4,7 @@ import { check } from 'express-validator';
 import { validateResults } from '../middlewares/handleValidator';
 
 export const validateGetItem = [
-  check('id').exists().notEmpty().isMongoId(),
+  check('id').exists().notEmpty(),
 
   (req: Request, res: Response, next: NextFunction) => validateResults(req, res, next),
 ];

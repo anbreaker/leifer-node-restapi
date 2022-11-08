@@ -2,7 +2,9 @@ import { Request, Response } from 'express';
 import { matchedData } from 'express-validator';
 
 import { handleHttpError } from '../utils/handleHttpError';
-import { Track } from '../models/nosql/track.model';
+
+const engineDB = process.env.ENGINE_DB;
+const { Track } = require(`../models/${engineDB}/track.model`);
 
 /**
  * Get list DB

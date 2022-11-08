@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
-import { matchedData } from 'express-validator';
 import fs from 'fs';
 import path from 'path';
 
 import { handleHttpError } from '../utils/handleHttpError';
-import { Storage } from '../models/nosql/storage.model';
+
+const engineDB = process.env.ENGINE_DB;
+const { Storage } = require(`../models/${engineDB}/storage.model`);
 
 const publicUrl = process.env.PUBLIC_URL;
 const mediaPath = path.join(__dirname, '../storage');

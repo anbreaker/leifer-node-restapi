@@ -4,7 +4,9 @@ import { compare, encrypt } from '../utils/handlePassword';
 import { handleHttpError } from '../utils/handleHttpError';
 import { matchedData } from 'express-validator';
 import { tokenSing } from '../utils/handleJWT';
-import { User } from '../models/nosql/user.model';
+
+const engineDB = process.env.ENGINE_DB;
+const { User } = require(`../models/${engineDB}/user.model`);
 
 /**
  * Controller Register User

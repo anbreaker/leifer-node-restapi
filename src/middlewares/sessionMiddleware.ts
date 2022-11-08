@@ -1,8 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 
+import { getProperties } from '../utils/handlePropertiesEngine';
 import { handleHttpError } from '../utils/handleHttpError';
 import { User } from '../models/nosql/user.model';
 import { verifyToken } from '../utils/handleJWT';
+
+const engineDB = process.env.ENGINE_DB;
+
+const propertiesKey = getProperties(engineDB!);
 
 export const authMiddleware = async (req: Request | any, res: Response, next: NextFunction) => {
   try {
@@ -16,13 +21,17 @@ export const authMiddleware = async (req: Request | any, res: Response, next: Ne
 
     const dataToken: any = await verifyToken(token!);
 
-    if (!dataToken._id) {
-      handleHttpError(res, 'ERROR_ID_TOKEN', 401);
+    if (!dataToken) {
+      handleHttpError(res, 'NOT_JWT_TOKEN', 401);
 
       return;
     }
 
-    const user = await User.findById(dataToken._id);
+    const query = {
+      [propertiesKey.id]: dataToken[propertiesKey.id],
+    };
+
+    const user = await User.findOne(query);
 
     req.user = user;
 

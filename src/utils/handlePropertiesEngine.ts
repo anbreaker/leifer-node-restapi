@@ -1,10 +1,5 @@
-interface IEngine {
-  nosql: Object;
-  postgres: Object;
-}
-
-export const getProperties = (engineDB: Object) => {
-  const data: IEngine = {
+export const getProperties = (engineDB: String) => {
+  const data = {
     nosql: {
       id: '_id',
     },
@@ -13,5 +8,5 @@ export const getProperties = (engineDB: Object) => {
     },
   };
 
-  return data[engineDB as keyof typeof engineDB];
+  return data[engineDB as keyof typeof data];
 };

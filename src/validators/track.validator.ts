@@ -14,13 +14,13 @@ export const validateCreateTrack = [
   check('duration').exists().notEmpty(),
   check('duration.start').exists().notEmpty(),
   check('duration.end').exists().notEmpty(),
-  check('mediaId').exists().notEmpty().isMongoId(),
+  check('mediaId').exists().notEmpty(),
 
   (req: Request, res: Response, next: NextFunction) => validateResults(req, res, next),
 ];
 
 export const validateGetTrack = [
-  check('mediaId').exists().notEmpty().isMongoId(),
+  check('mediaId').exists().notEmpty(),
 
   (req: Request, res: Response, next: NextFunction) => validateResults(req, res, next),
 ];
