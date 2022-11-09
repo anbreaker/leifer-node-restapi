@@ -7,6 +7,7 @@ import { handleHttpError } from '../utils/handleHttpError';
 const engineDB = process.env.ENGINE_DB;
 const { Storage } = require(`../models/${engineDB}/storage.model`);
 
+// TODO use this variable??
 const publicUrl = process.env.PUBLIC_URL;
 const mediaPath = path.join(__dirname, '../storage');
 
@@ -58,7 +59,9 @@ export const createItem = async (req: Request, res: Response) => {
 
     const fileData = {
       filename: file?.filename,
-      url: `${publicUrl}/${file?.filename}`,
+      // TODO change by SO...
+      url: `${mediaPath}\\${file?.filename}`.split('\\').join('/'),
+      // url: `${mediaPath}/${file?.filename}`,
     };
 
     const data = await Storage.create(fileData);

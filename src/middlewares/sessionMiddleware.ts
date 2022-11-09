@@ -2,10 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 
 import { getProperties } from '../utils/handlePropertiesEngine';
 import { handleHttpError } from '../utils/handleHttpError';
-import { User } from '../models/nosql/user.model';
 import { verifyToken } from '../utils/handleJWT';
 
 const engineDB = process.env.ENGINE_DB;
+const { User } = require(`../models/${engineDB}/user.model`);
 
 const propertiesKey = getProperties(engineDB!);
 

@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS public.tracks (
   artist_nationality text COLLATE pg_catalog."default",
   duration_start text COLLATE pg_catalog."default",
   duration_end text COLLATE pg_catalog."default",
-  media_id text COLLATE pg_catalog."default",
+  "mediaId" text COLLATE pg_catalog."default",
   "createdAt" date,
   "updatedAt" date
 ) TABLESPACE pg_default;

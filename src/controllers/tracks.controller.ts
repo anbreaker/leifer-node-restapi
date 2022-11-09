@@ -4,7 +4,7 @@ import { matchedData } from 'express-validator';
 import { handleHttpError } from '../utils/handleHttpError';
 
 const engineDB = process.env.ENGINE_DB;
-const { Track } = require(`../models/${engineDB}/track.model`);
+const { Tracks } = require(`../models/${engineDB}/track.model`);
 
 /**
  * Get list DB
@@ -14,9 +14,9 @@ const { Track } = require(`../models/${engineDB}/track.model`);
  */
 export const getTracks = async (req: Request | any, res: Response) => {
   try {
-    const data = await Track.find({});
-
     const user = req.user;
+
+    const data = await Tracks.findAll({});
 
     return res.json({ data, user });
   } catch (error) {
@@ -35,7 +35,7 @@ export const getTrack = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const data = await Track.findById(id);
+    const data = await Tracks.findByPk(id);
 
     return res.json({ data });
   } catch (error) {
@@ -54,7 +54,7 @@ export const createTrack = async (req: Request, res: Response) => {
   try {
     const body = matchedData(req);
 
-    const data = await Track.create(body);
+    const data = await Tracks.create(body);
 
     return res.json({ data });
   } catch (error) {
@@ -73,7 +73,7 @@ export const updateTrack = async (req: Request, res: Response) => {
   try {
     const { id, ...body } = matchedData(req);
 
-    const data = await Track.findOneAndUpdate(id, body);
+    const data = await Tracks.findOneAndUpdate(id, body);
 
     return res.json({ data });
   } catch (error) {
@@ -94,7 +94,7 @@ export const deleteTrack = async (req: Request, res: Response) => {
 
     // trackSchema.plugin(mongooseDelete, { overrideMethods: 'all' });
     // Logical delete
-    const data = await Track.delete({ _id: id });
+    const data = await Tracks.delete({ _id: id });
 
     return res.json({ data });
   } catch (error) {
